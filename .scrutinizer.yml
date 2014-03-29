@@ -1,0 +1,8 @@
+imports:
+    - javascript
+    - php
+
+inherit: true
+
+filter:
+  paths: [src]
