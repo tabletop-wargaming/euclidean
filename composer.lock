@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "b85b5ea2fe68d1be2e51d76bc443e8be",
+    "hash": "5eec2bbf1294e909d24f7ac7987c13b7",
     "packages": [
         {
             "name": "tabletop-wargaming/common",
@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/tabletop-wargaming/common.git",
-                "reference": "73b1f728301d8a886639151eda5ee547f306acb0"
+                "reference": "89255f69d5e122a32ef77c375cecadcc34f28877"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tabletop-wargaming/common/zipball/73b1f728301d8a886639151eda5ee547f306acb0",
-                "reference": "73b1f728301d8a886639151eda5ee547f306acb0",
+                "url": "https://api.github.com/repos/tabletop-wargaming/common/zipball/89255f69d5e122a32ef77c375cecadcc34f28877",
+                "reference": "89255f69d5e122a32ef77c375cecadcc34f28877",
                 "shasum": ""
             },
             "require": {
@@ -34,7 +34,7 @@
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
+                "psr-4": {
                     "TabletopWargaming\\Common\\": "src/"
                 }
             },
@@ -50,7 +50,7 @@
             ],
             "description": "Value objects common to most tabletop gaming systems",
             "homepage": "https://github.com/tabletop-wargaming/value-objects",
-            "time": "2014-03-29 01:47:34"
+            "time": "2014-03-29 07:47:19"
         }
     ],
     "packages-dev": [
