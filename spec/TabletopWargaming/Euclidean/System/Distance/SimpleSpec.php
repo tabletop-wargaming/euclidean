@@ -4,33 +4,33 @@ namespace spec\TabletopWargaming\Euclidean\System\Distance;
 
 use \PhpSpec\ObjectBehavior;
 use \Prophecy\Argument;
-use \TabletopWargaming\ValueObject\Geometry\Measurement\System;
+use \TabletopWargaming\Euclidean\System\Distance;
 
 class SimpleSpec extends ObjectBehavior
 {
     public function let()
     {
         $this->beConstructedWith(
-            System::IMPERIAL,
-            System::INCHES,
-            System::INCH_MICRO,
+            Distance::IMPERIAL,
+            Distance::INCHES,
+            Distance::INCH_MICRO,
             '%d"'
         );
     }
 
     function it_gives_me_the_system_name()
     {
-        $this->getName()->shouldReturn(System::IMPERIAL);
+        $this->getName()->shouldReturn(Distance::IMPERIAL);
     }
 
     function it_gives_me_the_unit_name()
     {
-        $this->getUnit()->shouldReturn(System::INCHES);
+        $this->getUnit()->shouldReturn(Distance::INCHES);
     }
 
     function it_gives_me_the_unit_name_when_tostringed()
     {
-        $this->__toString()->shouldReturn(System::INCHES);
+        $this->__toString()->shouldReturn(Distance::INCHES);
     }
 
     function it_gives_me_a_rendered_string()
@@ -41,9 +41,9 @@ class SimpleSpec extends ObjectBehavior
     function it_gives_me_a_rendered_string_with_the_correct_suffix()
     {
         $this->beConstructedWith(
-            System::METRIC,
-            System::CM,
-            System::CM_MICRO,
+            Distance::METRIC,
+            Distance::CM,
+            Distance::CM_MICRO,
             '%dcm'
         );
         $this->render(24)->shouldReturn('24cm');
