@@ -17,7 +17,7 @@ class Simple implements Range
     public function __construct(Length $start, Length $end)
     {
         if ($start->isGreaterThan($end)) {
-            throw new \LengthException('Start of the rangeruler cannot be larger than the end');
+            throw new \LengthException('Start of the range cannot be larger than the end');
         }
         $this->start = $start;
         $this->end = $end;

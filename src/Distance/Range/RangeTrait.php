@@ -15,7 +15,9 @@ trait RangeTrait
 
     public function render()
     {
-        return vsprintf('%s-%s', array((string) $this->getStart(), (string) $this->getEnd()));
+        return vsprintf('%s-%s', array(
+            (string) $this->getStart()->getDistance(),
+            (string) $this->getEnd()->getDistance()));
     }
 
     public function isInfinite()

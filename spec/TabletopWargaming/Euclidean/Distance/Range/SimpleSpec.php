@@ -32,7 +32,7 @@ class SimpleSpec extends ObjectBehavior
         $end = new Measure(8, $system);
 
         $this->beConstructedWith($start, $end);
-        $this->__toString()->shouldReturn('0-8"');
+        $this->__toString()->shouldReturn('0-8');
     }
 
     function it_should_return_the_start_Length($start)
