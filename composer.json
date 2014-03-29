@@ -29,5 +29,5 @@
     "config": {
         "bin-dir": "bin"
     },
-    "autoload": {"psr-0": {"TabletopWargaming\\Euclidean": "src/"}}
+    "autoload": {"psr-4": {"TabletopWargaming\\Euclidean\\": "src/"}}
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace spec\TabletopWargaming\ValueObject\Geometry\Measurement;
+namespace spec\TabletopWargaming\Euclidean\System\Distance;
 
 use \PhpSpec\ObjectBehavior;
 use \Prophecy\Argument;
 use \TabletopWargaming\ValueObject\Geometry\Measurement\System;
 
-class SystemSpec extends ObjectBehavior
+class SimpleSpec extends ObjectBehavior
 {
     public function let()
     {

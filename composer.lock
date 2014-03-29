@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "4fb6d5a081355b09b3462ae25803cb38",
+    "hash": "b85b5ea2fe68d1be2e51d76bc443e8be",
     "packages": [
         {
             "name": "tabletop-wargaming/common",

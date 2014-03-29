@@ -9,7 +9,7 @@ use TabletopWargaming\ValueObject\Geometry\Measurement;
 use \TabletopWargaming\ValueObject\Geometry\Measurement\System;
 
 
-class MeasurementSpec extends ObjectBehavior
+class MeasureSpec extends ObjectBehavior
 {
     function it_returns_the_measurement_i_give_it(System $system)
     {
