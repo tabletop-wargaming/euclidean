@@ -1,9 +1,9 @@
 {
-    "name":                 "tabletop-wargaming/euclidean",
+    "name":                 "tabletop-wargaming/vo-euclidean",
     "description":          "Classes to describe Euclidean space",
     "minimum-stability":    "dev",
     "license":              "MIT",
-    "homepage":             "https://github.com/tabletop-wargaming/euclidean",
+    "homepage":             "https://github.com/tabletop-wargaming/vo-euclidean",
     "type":                 "library",
     "authors": [
         {
