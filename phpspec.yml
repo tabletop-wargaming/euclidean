@@ -1,7 +1,7 @@
 suites:
   wargaming-euclidean:
     namespace: TabletopWargaming\Euclidean
-    src_path: src
+    src_path: src/
     spec_path: .
 
 formatter.name: pretty

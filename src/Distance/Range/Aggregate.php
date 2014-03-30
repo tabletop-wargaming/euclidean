@@ -2,10 +2,11 @@
 
 namespace TabletopWargaming\Euclidean\Distance\Range;
 
+use \TabletopWargaming\Common\Interfaces\Renderable;
 use \TabletopWargaming\Euclidean\Distance\Range;
 use \TabletopWargaming\Euclidean\Distance\Length;
 
-class Aggregate implements Range
+class Aggregate implements Range, Renderable
 {
     use \TabletopWargaming\Euclidean\Distance\Range\RangeTrait;
 

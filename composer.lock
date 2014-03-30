@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/tabletop-wargaming/common.git",
-                "reference": "ae332010d930e77414b32fb2b2d47fecc770b423"
+                "reference": "e1d1861784d1f5d22afd79420991127cdd544dd0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tabletop-wargaming/common/zipball/ae332010d930e77414b32fb2b2d47fecc770b423",
-                "reference": "ae332010d930e77414b32fb2b2d47fecc770b423",
+                "url": "https://api.github.com/repos/tabletop-wargaming/common/zipball/e1d1861784d1f5d22afd79420991127cdd544dd0",
+                "reference": "e1d1861784d1f5d22afd79420991127cdd544dd0",
                 "shasum": ""
             },
             "require": {
@@ -49,7 +49,7 @@
             ],
             "description": "Value objects common to most tabletop gaming systems",
             "homepage": "https://github.com/tabletop-wargaming/common",
-            "time": "2014-03-29 18:23:17"
+            "time": "2014-03-30 11:38:47"
         }
     ],
     "packages-dev": [
