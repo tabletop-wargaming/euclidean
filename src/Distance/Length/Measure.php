@@ -6,10 +6,11 @@ use \TabletopWargaming\Common\Interfaces\Comparable;
 use \TabletopWargaming\Common\Interfaces\Renderable;
 use \TabletopWargaming\Euclidean\Distance\Length;
 use \TabletopWargaming\Euclidean\System\Distance;
+use TabletopWargaming\Euclidean\System;
 
 class Measure implements Length, Renderable
 {
-    const DELTA = 0.00001;
+    const SCALE = 2;
 
     private $system;
 
@@ -17,11 +18,11 @@ class Measure implements Length, Renderable
 
     private $delta;
 
-    public function __construct($distance, Distance $system, $delta = self::DELTA)
+    public function __construct($distance, Distance $system, $scale = self::SCALE)
     {
-        $this->distance = $distance;
+        $this->distance = (double) $distance;
         $this->system = $system;
-        $this->delta = (double) $delta;
+        $this->scale = $scale;
     }
 
     public function __toString()
@@ -44,30 +45,44 @@ class Measure implements Length, Renderable
         return $this->distance;
     }
 
+    public function getScale()
+    {
+        return $this->scale;
+    }
+
     public function add(Length $length)
     {
-        $diff = $this->toBase() + $length->toBase();
-        $distance = $this->getSystem()->toUnit($diff);
-        return new self($distance, $this->getSystem());
+        $diff = bcadd($this->toBase(), $length->toBase(), $this->getScale());
+        return $this->fromBase($diff, $this->getSystem());
     }
 
     public function subtract(Length $length)
     {
-        $diff = $this->toBase() - $length->toBase();
-        $distance = $this->getSystem()->toUnit($diff);
-        return new self($distance, $this->getSystem());
+        $diff = bcsub($this->toBase(), $length->toBase(), $this->getScale());
+        return $this->fromBase($diff, $this->getSystem());
+    }
+
+    public function divide($divisor)
+    {
+        $diff = bcdiv($this->toBase(), $divisor, $this->getScale());
+        return $this->fromBase($diff, $this->getSystem());
+    }
+
+    public function multiply($multiplier)
+    {
+        $diff = bcmul($this->toBase(), $multiplier, $this->getScale());
+        return $this->fromBase($diff, $this->getSystem());
     }
 
     public function convertTo(Distance $system)
     {
-        $distance = $this->system->toBase($this->distance);
-        $unit = $system->toUnit($distance);
-        return new self($unit, $system);
+        $distance = $system->toBase($this->getDistance());
+        return $this->fromBase($distance, $system);
     }
 
     public function toBase()
     {
-        return ($this->isInfinite()) ? INF : $this->system->toBase($this->distance);
+        return ($this->isInfinite()) ? INF : $this->getSystem()->toBase($this->getDistance());
     }
 
     public function isInfinite()
@@ -92,6 +107,13 @@ class Measure implements Length, Renderable
 
     public function compare(Length $length)
     {
-        return bccomp($this->toBase(), $length->toBase());
+        return bccomp($this->toBase(), $length->toBase(), $this->getScale());
+    }
+
+    private function fromBase($diff, Distance $system)
+    {
+        $scale = $this->getScale();
+        $unit = $system->toUnit($diff);
+        return new self($unit, $system, $scale);
     }
 }
