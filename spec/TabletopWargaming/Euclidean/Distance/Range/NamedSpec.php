@@ -4,7 +4,6 @@ namespace spec\TabletopWargaming\Euclidean\Distance\Range;
 
 use \PhpSpec\ObjectBehavior;
 use \Prophecy\Argument;
-use TabletopWargaming\Common\Interfaces\Comparable;
 use \TabletopWargaming\Euclidean\Distance\Length\Measure;
 use \TabletopWargaming\Euclidean\System\Distance;
 use \TabletopWargaming\Euclidean\Distance\Range\Simple as SimpleRange;
@@ -18,12 +17,19 @@ class NamedSpec extends ObjectBehavior
         $end->beADoubleOf('\TabletopWargaming\Euclidean\Distance\Length\Measure');
         $range->getStart()->willReturn($start);
         $range->getEnd()->willReturn($end);
-        $this->beConstructedWith($range);
+        $this->beConstructedWith('long', $range);
     }
 
     function it_should_implement_nameable()
     {
         $this->shouldHaveType('\TabletopWargaming\Common\Interfaces\Named');
+    }
+
+    function it_should_have_the_name_i_gave_it(SimpleRange $range)
+    {
+        $name = 'short';
+        $this->beConstructedWith($name, $range);
+        $this->getName()->shouldReturn($name);
     }
 
     function it_should_return_the_start_length($start)

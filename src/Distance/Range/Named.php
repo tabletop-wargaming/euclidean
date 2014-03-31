@@ -14,8 +14,9 @@ class Named implements Range, NamedInterface
 
     private $range;
 
-    public function __construct(Range $range)
+    public function __construct($name, Range $range)
     {
+        $this->name = $name;
         $this->range = $range;
     }
 
