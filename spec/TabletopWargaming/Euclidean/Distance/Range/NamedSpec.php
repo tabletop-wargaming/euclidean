@@ -6,33 +6,30 @@ use \PhpSpec\ObjectBehavior;
 use \Prophecy\Argument;
 use \TabletopWargaming\Euclidean\Distance\Length\Measure;
 use \TabletopWargaming\Euclidean\System\Distance;
-use \TabletopWargaming\Euclidean\System\Distance\Simple as SimpleDistance;
 use \TabletopWargaming\Euclidean\Distance\Range\Simple as SimpleRange;
 
-class SimpleSpec extends ObjectBehavior
+class NamedSpec extends ObjectBehavior
 {
-    public function let($start, $end, $in)
+    public function let($range, $start, $end)
     {
-        $start->beADoubleOf('TabletopWargaming\Euclidean\Distance\Length\Measure');
-        $end->beADoubleOf('TabletopWargaming\Euclidean\Distance\Length\Measure');
-        $in->beADoubleOf('TabletopWargaming\Euclidean\Distance\Length\Measure');
-        $start->isGreaterThan($end)->willReturn(false);
-        $this->beConstructedWith($start, $end);
+        $range->beADoubleOf('\TabletopWargaming\Euclidean\Distance\Range\Simple');
+        $start->beADoubleOf('\TabletopWargaming\Euclidean\Distance\Length\Measure');
+        $end->beADoubleOf('\TabletopWargaming\Euclidean\Distance\Length\Measure');
+        $range->getStart()->willReturn($start);
+        $range->getEnd()->willReturn($end);
+        $this->beConstructedWith('long', $range);
     }
 
-    function it_is_to_strinagable()
+    function it_should_implement_nameable()
     {
-        $system = new SimpleDistance(
-            Distance::IMPERIAL,
-            Distance::INCHES,
-            Distance::INCH_MICRO,
-            Distance::FORMAT_IMPERIAL
-        );
-        $start = new Measure(0, $system);
-        $end = new Measure(8, $system);
+        $this->shouldHaveType('\TabletopWargaming\Common\Interfaces\Named');
+    }
 
-        $this->beConstructedWith($start, $end);
-        $this->__toString()->shouldReturn('0-8');
+    function it_should_have_the_name_i_gave_it(SimpleRange $range)
+    {
+        $name = 'short';
+        $this->beConstructedWith($name, $range);
+        $this->getName()->shouldReturn($name);
     }
 
     function it_should_return_the_start_length($start)
@@ -43,15 +40,6 @@ class SimpleSpec extends ObjectBehavior
     function it_should_return_the_end_Length($end)
     {
         $this->getEnd()->shouldReturn($end);
-    }
-
-    function it_should_not_allow_a_start_value_higher_than_the_end_value(
-        $start,
-        $end
-    )
-    {
-        $start->isGreaterThan($end)->willReturn(true);
-        $this->shouldThrow('\LengthException')->during('__construct', array($start, $end));
     }
 
     function it_should_return_itself_if_it_is_in_range(
@@ -66,9 +54,9 @@ class SimpleSpec extends ObjectBehavior
     }
 
     function it_should_return_null_if_out_of_range(
-        $start,
-        $end,
-        $in
+        Measure $start,
+        Measure $end,
+        Measure $in
     )
     {
         $in->isLessThan($start)->willReturn(false);

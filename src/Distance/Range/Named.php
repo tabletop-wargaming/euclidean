@@ -3,35 +3,31 @@
 namespace TabletopWargaming\Euclidean\Distance\Range;
 
 use \TabletopWargaming\Common\Interfaces\Comparable;
-use TabletopWargaming\Common\Interfaces\Renderable;
+use \TabletopWargaming\Common\Interfaces\Named as NamedInterface;
 use \TabletopWargaming\Euclidean\Distance\Length;
 use \TabletopWargaming\Euclidean\Distance\Range;
 
-class Simple implements Range, Renderable
+class Named implements Range, NamedInterface
 {
+    use \TabletopWargaming\Common\Traits\Nameable;
     use \TabletopWargaming\Euclidean\Distance\Range\RangeTrait;
 
-    private $start;
+    private $range;
 
-    private $end;
-
-    public function __construct(Length $start, Length $end)
+    public function __construct($name, Range $range)
     {
-        if ($start->isGreaterThan($end)) {
-            throw new \LengthException('Start of the range cannot be larger than the end');
-        }
-        $this->start = $start;
-        $this->end = $end;
+        $this->name = $name;
+        $this->range = $range;
     }
 
     public function getStart()
     {
-        return $this->start;
+        return $this->getRange()->getStart();
     }
 
     public function getEnd()
     {
-        return $this->end;
+        return $this->getRange()->getEnd();
     }
 
     public function in(Length $measurement)
@@ -40,5 +36,10 @@ class Simple implements Range, Renderable
         if (Comparable::EQUAL_TO === $compare) {
             return $this;
         }
+    }
+
+    private function getRange()
+    {
+        return $this->range;
     }
 }
