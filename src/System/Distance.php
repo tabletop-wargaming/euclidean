@@ -14,7 +14,7 @@ interface Distance
 
     const FORMAT_METRIC     = '%dcm';
 
-    const INCH_MICRO        = 25400; // number of μm in an inch
+    const INCH_MM        = 25.4; // number of mm in an inch
 
-    const CM_MICRO          = 10000; // number of μm in a cm
+    const CM_MM          = 10; // number of mm in a cm
 }

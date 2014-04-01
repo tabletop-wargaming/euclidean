@@ -25,7 +25,7 @@ class SimpleSpec extends ObjectBehavior
         $system = new SimpleDistance(
             Distance::IMPERIAL,
             Distance::INCHES,
-            Distance::INCH_MICRO,
+            Distance::INCH_MM,
             Distance::FORMAT_IMPERIAL
         );
         $start = new Measure(0, $system);

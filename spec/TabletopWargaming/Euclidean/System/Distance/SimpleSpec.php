@@ -13,7 +13,7 @@ class SimpleSpec extends ObjectBehavior
         $this->beConstructedWith(
             Distance::IMPERIAL,
             Distance::INCHES,
-            Distance::INCH_MICRO,
+            Distance::INCH_MM,
             '%d"'
         );
     }
@@ -43,7 +43,7 @@ class SimpleSpec extends ObjectBehavior
         $this->beConstructedWith(
             Distance::METRIC,
             Distance::CM,
-            Distance::CM_MICRO,
+            Distance::CM_MM,
             '%dcm'
         );
         $this->render(24)->shouldReturn('24cm');
@@ -51,11 +51,11 @@ class SimpleSpec extends ObjectBehavior
 
     function it_gives_me_the_base_value()
     {
-        $this->toBase(24)->shouldReturn((double) 609600);
+        $this->toBase(24)->shouldReturn(6096);
     }
 
     function it_gives_me_the_unit_value()
     {
-        $this->toUnit(1219200)->shouldReturn((double) 48);
+        $this->toUnit(12192)->shouldReturn((double) 48);
     }
 }

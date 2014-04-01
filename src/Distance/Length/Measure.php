@@ -20,7 +20,7 @@ class Measure implements Length, Renderable
 
     public function __construct($distance, Distance $system, $scale = self::SCALE)
     {
-        $this->distance = (double) $distance;
+        $this->distance = $distance;
         $this->system = $system;
         $this->scale = $scale;
     }
@@ -52,7 +52,7 @@ class Measure implements Length, Renderable
 
     public function add(Length $length)
     {
-        $diff = bcadd($this->toBase(), $length->toBase(), $this->getScale());
+        $diff = bcadd($this->toBase(), $length->toBase());
         return $this->fromBase($diff, $this->getSystem());
     }
 
@@ -76,13 +76,20 @@ class Measure implements Length, Renderable
 
     public function convertTo(Distance $system)
     {
-        $distance = $system->toBase($this->getDistance());
+        $distance = $system->toBase($this->getDistance(), $this->getScale());
         return $this->fromBase($distance, $system);
     }
 
     public function toBase()
     {
-        return ($this->isInfinite()) ? INF : $this->getSystem()->toBase($this->getDistance());
+        $diff = INF;
+        if (!$this->isInfinite()) {
+            $diff = $this->getSystem()->toBase(
+                $this->getDistance(),
+                $this->getScale()
+            );
+        }
+        return $diff;
     }
 
     public function isInfinite()
@@ -113,7 +120,8 @@ class Measure implements Length, Renderable
     private function fromBase($diff, Distance $system)
     {
         $scale = $this->getScale();
-        $unit = $system->toUnit($diff);
-        return new self($unit, $system, $scale);
+        $unit = $system->toUnit($diff, $scale);
+        $measure = new self($unit, $system, $scale);
+        return $measure;
     }
 }

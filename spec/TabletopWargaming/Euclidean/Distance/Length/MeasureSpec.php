@@ -16,17 +16,17 @@ class MeasureSpec extends ObjectBehavior
         $inches = new SimpleDistance(
             Distance::IMPERIAL,
             Distance::INCHES,
-            Distance::INCH_MICRO,
+            Distance::INCH_MM,
             '%d"'
         );
-        $this->beConstructedWith(48, $inches);
+        $this->beConstructedWith(48, $inches); // 1219.2 millimetres
     }
 
     function it_returns_the_measurement_i_give_it(SimpleDistance $system)
     {
         $distance = 24;
         $this->beConstructedWith($distance, $system);
-        $this->getDistance()->shouldReturn((double) $distance);
+        $this->getDistance()->shouldReturn($distance);
     }
 
     function it_is_to_stringable()
@@ -37,20 +37,21 @@ class MeasureSpec extends ObjectBehavior
 
     function it_returns_a_valid_measurement_if_i_subtract_from_it()
     {
-        $metric = new SimpleDistance(Distance::METRIC, Distance::CM, Distance::CM_MICRO, '%dcm');
+        $metric = new SimpleDistance(Distance::METRIC, Distance::CM, Distance::CM_MM, '%dcm');
         $that  = new Measure(40, $metric);
         $theOther = new Measure(81.92, $metric);
         $this->subtract($that)->shouldMatchMeasure($theOther);
-        $this->getDistance()->shouldReturn((double) 48);
+        $this->getDistance()->shouldReturn(48);
     }
 
     function it_returns_a_valid_measurement_if_i_add_to_it()
     {
-        $metric = new SimpleDistance(Distance::METRIC, Distance::CM, Distance::CM_MICRO, '%dcm');
+        $metric = new SimpleDistance(Distance::METRIC, Distance::CM, Distance::CM_MM, '%dcm');
         $that  = new Measure(40, $metric);
-        $theOther = new Measure(161.92, $metric);
+        $theOther = new Measure(161.9, $metric);
+
         $this->add($that)->shouldMatchMeasure($theOther);
-        $this->getDistance()->shouldReturn((double) 48);
+        $this->getDistance()->shouldReturn(48);
     }
 
     function it_returns_a_valid_measure_when_i_divide_it()
@@ -58,7 +59,7 @@ class MeasureSpec extends ObjectBehavior
         $inches = new SimpleDistance(
             Distance::IMPERIAL,
             Distance::INCHES,
-            Distance::INCH_MICRO,
+            Distance::INCH_MM,
             '%d"'
         );
         $quarter = new Measure(12, $inches);
@@ -70,7 +71,7 @@ class MeasureSpec extends ObjectBehavior
         $inches = new SimpleDistance(
             Distance::IMPERIAL,
             Distance::INCHES,
-            Distance::INCH_MICRO,
+            Distance::INCH_MM,
             '%d"'
         );
         $quarter = new Measure(144, $inches);
@@ -99,7 +100,7 @@ class MeasureSpec extends ObjectBehavior
         $inches = new SimpleDistance(
             Distance::IMPERIAL,
             Distance::INCHES,
-            Distance::INCH_MICRO,
+            Distance::INCH_MM,
             '%d"'
         );
         $that = new Measure(49, $inches);
@@ -114,7 +115,7 @@ class MeasureSpec extends ObjectBehavior
         $inches = new SimpleDistance(
             Distance::IMPERIAL,
             Distance::INCHES,
-            Distance::INCH_MICRO,
+            Distance::INCH_MM,
             '%d"'
         );
         $that = new Measure(48, $inches);
@@ -129,7 +130,7 @@ class MeasureSpec extends ObjectBehavior
         $inches = new SimpleDistance(
             Distance::IMPERIAL,
             Distance::INCHES,
-            Distance::INCH_MICRO,
+            Distance::INCH_MM,
             '%d"'
         );;
         $that = new Measure(48.1, $inches);
@@ -145,7 +146,7 @@ class MeasureSpec extends ObjectBehavior
         $inches = new SimpleDistance(
             Distance::IMPERIAL,
             Distance::INCHES,
-            Distance::INCH_MICRO,
+            Distance::INCH_MM,
             '%d"'
         );
         $this->beConstructedWith(INF, $inches);
@@ -157,10 +158,10 @@ class MeasureSpec extends ObjectBehavior
         $inches = new SimpleDistance(
             Distance::IMPERIAL,
             Distance::INCHES,
-            Distance::INCH_MICRO,
+            Distance::INCH_MM,
             '%d"'
         );
-        $metric = new SimpleDistance(Distance::METRIC, Distance::CM, Distance::CM_MICRO, '%dcm');
+        $metric = new SimpleDistance(Distance::METRIC, Distance::CM, Distance::CM_MM, '%dcm');
         $metricMeasure = new Measure(121.92, $metric);
         $this->beConstructedWith(48, $inches);
         $this->convertTo($metric)->shouldMatchMeasure($metricMeasure);
@@ -170,13 +171,17 @@ class MeasureSpec extends ObjectBehavior
     {
         return [
           'matchMeasure' => function(Measure $measurement1, Measure $measurement2) {
+              $first = $measurement1->toBase();
+              $second = $measurement2->toBase();
               $match = bccomp(
-                  $measurement1->toBase(),
-                  $measurement2->toBase(),
+                  $first,
+                  $second,
                   $measurement2->getScale()
               );
-              var_dump($match);
-              return (0 === $match);
+              if (0 !== $match) {
+                  throw new \Exception("$match ($first) ($second)");
+              }
+              return true;
           }
         ];
     }

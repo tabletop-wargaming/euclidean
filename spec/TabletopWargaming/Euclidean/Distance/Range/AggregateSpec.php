@@ -16,7 +16,7 @@ class AggregateSpec extends ObjectBehavior
         $system = new SimpleDistance(
             Distance::IMPERIAL,
             Distance::INCHES,
-            Distance::INCH_MICRO,
+            Distance::INCH_MM,
             Distance::FORMAT_IMPERIAL
         );
 
@@ -34,7 +34,7 @@ class AggregateSpec extends ObjectBehavior
         $system = new SimpleDistance(
             Distance::IMPERIAL,
             Distance::INCHES,
-            Distance::INCH_MICRO,
+            Distance::INCH_MM,
             Distance::FORMAT_IMPERIAL
         );
         $start = new Measure(0, $system);
@@ -46,7 +46,7 @@ class AggregateSpec extends ObjectBehavior
         $system = new SimpleDistance(
             Distance::IMPERIAL,
             Distance::INCHES,
-            Distance::INCH_MICRO,
+            Distance::INCH_MM,
             Distance::FORMAT_IMPERIAL
         );
         $end = new Measure(48, $system);
@@ -58,7 +58,7 @@ class AggregateSpec extends ObjectBehavior
         $system = new SimpleDistance(
             Distance::IMPERIAL,
             Distance::INCHES,
-            Distance::INCH_MICRO,
+            Distance::INCH_MM,
             Distance::FORMAT_IMPERIAL
         );
         $in = new Measure(47, $system);

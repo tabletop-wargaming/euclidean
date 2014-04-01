@@ -19,7 +19,7 @@ class Simple implements Distance, System
     {
         $this->name     = $name;
         $this->unit     = $unit;
-        $this->base     = $base;
+        $this->base     = (double) $base;
         $this->format   = (string) $format;
     }
 
@@ -33,18 +33,25 @@ class Simple implements Distance, System
         return $this->unit;
     }
 
+    public function getBase()
+    {
+        return $this->base;
+    }
+
     public function render($distance)
     {
         return vsprintf($this->format, $distance);
     }
 
-    public function toBase($distance)
+    public function toBase($distance, $scale = 0)
     {
-        return (double) bcmul($distance, $this->base);
+        return (int) bcmul($this->getBase(), $distance);
     }
 
-    public function toUnit($distance)
+    public function toUnit($base, $scale = 0)
     {
-        return (double) bcdiv($distance, $this->base);
+        $unit = (double) bcdiv($base, $this->getBase(), $scale);
+        var_dump("unit was $unit, base was $base");
+        return $unit;
     }
 }
